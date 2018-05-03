@@ -1,36 +1,39 @@
+import { ClassDefinition } from '../types'
 import { getClassName } from './getClassName'
 import { ClassRegistryItem } from '../private/ClassRegistryItem'
 import { ClassRegistry } from './ClassRegistry'
 import { isString } from 'lodash'
-
-export type Decorator = (target: any) => any
 
 /**
  * Decorator to register a class.
  *
  * @returns {decorator}
  */
-export function register(): Decorator
+export function register(): ClassDecorator
+
 /**
  * Decorator to register a class with custom class name
  *
  * @param {string} className - the custom class name.
  * @returns {decorator}
  */
-export function register(className: string): Decorator
+export function register(className: string): ClassDecorator
+
 /**
  * Register class to ClassRegistry, we can use `make` to create an instance of this class later
  *
  * @param {class|function} classDefinition - class definition
  */
-export function register<T>(classDefinition: T): void
+export function register<T>(classDefinition: ClassDefinition<T>): void
+
 /**
  * Register class to ClassRegistry with custom name
  *
  * @param {class|function} classDefinition - class definition
  * @param {string} className - custom class name
  */
-export function register<T>(classDefinition: T, className: string): void
+export function register<T>(classDefinition: ClassDefinition<T>, className: string): void
+
 /**
  * Register class to ClassRegistry with custom name and overridable setting
  *
@@ -38,7 +41,8 @@ export function register<T>(classDefinition: T, className: string): void
  * @param {string} className - custom class name
  * @param {boolean} overridable - if true this class could not be registered again
  */
-export function register<T>(classDefinition: T, className: string, overridable: boolean): void
+export function register<T>(classDefinition: ClassDefinition<T>, className: string, overridable: boolean): void
+
 /**
  * Register class to ClassRegistry with custom name, overridable and singleton setting
  *
@@ -47,13 +51,19 @@ export function register<T>(classDefinition: T, className: string, overridable: 
  * @param {boolean} overridable - if true this class could not be registered again
  * @param {boolean} singleton - if true `make` creates only one instance and reuse for every calls
  */
-export function register<T>(classDefinition: T, className: string, overridable: boolean, singleton: boolean): void
+export function register<T>(
+  classDefinition: ClassDefinition<T>,
+  className: string,
+  overridable: boolean,
+  singleton: boolean
+): void
+
 export function register(
   classDefinition?: any,
   className?: any,
   overridable?: boolean,
   singleton?: boolean
-): void | Decorator {
+): void | ClassDecorator {
   if (typeof classDefinition === 'undefined' || isString(classDefinition)) {
     return function decorator(target: any): any {
       register(target, <string>classDefinition)

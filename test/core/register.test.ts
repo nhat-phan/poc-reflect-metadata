@@ -1,22 +1,18 @@
 import 'jest'
-import { ClassRegistry, register, IAutoload } from '../../../lib'
+import { type, ClassRegistry, register } from '../../lib'
 
-class TestAutoload implements IAutoload {
-  getClassName() {
-    return 'TestAutoload'
-  }
-}
+@type('TestAutoload')
+class TestAutoload {}
 
-class TestClassName {
-  static className: string = 'TestClassName'
-}
+@type('TestClassName')
+class TestClassName {}
 
 class Invalid {}
 
 declare const process: any
 
 describe('register()', function() {
-  it('throws an TypeError if the class definition not implemented IAutoload or has no className if OBFUSCABLE_CHECK is on', function() {
+  it('throws an TypeError if the class is not has @type() annotation and if OBFUSCABLE_CHECK is on', function() {
     process.env.OBFUSCABLE_CHECK = true
     try {
       expect(register(Invalid))
@@ -28,8 +24,8 @@ describe('register()', function() {
     expect('should throw a TypeError').toEqual('')
   })
 
-  describe('<typeof T>(classDefinition: T)', function() {
-    it('can registry a class definition by called IAutoload.getClassName()', function() {
+  describe('<T>(classDefinition: ClassDefinition<T>)', function() {
+    it('can registry a class definition which has @type definition', function() {
       register<TestAutoload>(TestAutoload)
       expect(ClassRegistry.findOrFail('TestAutoload')).toEqual({
         className: 'TestAutoload',
@@ -38,32 +34,9 @@ describe('register()', function() {
         singleton: false
       })
     })
-
-    it('can registry a class definition with value of property Class.className', function() {
-      register<TestClassName>(TestClassName)
-      expect(ClassRegistry.findOrFail('TestClassName')).toEqual({
-        className: 'TestClassName',
-        instanceConstructor: TestClassName,
-        overridable: true,
-        singleton: false
-      })
-    })
-
-    it('can registry a class definition with Function.name if OBFUSCABLE_CHECK not found', function() {
-      delete process.env.OBFUSCABLE_CHECK
-      process.env.OBFUSCABLE_WARNING = 'FALSE'
-      function TestFunctionName() {}
-      register(<any>TestFunctionName)
-      expect(ClassRegistry.findOrFail('TestFunctionName')).toEqual({
-        className: 'TestFunctionName',
-        instanceConstructor: TestFunctionName,
-        overridable: true,
-        singleton: false
-      })
-    })
   })
 
-  describe('<typeof T>(classDefinition: T, className: string)', function() {
+  describe('<T>(classDefinition: ClassDefinition<T>, className: string)', function() {
     it('can register an class definition with custom name', function() {
       register<TestAutoload>(TestAutoload, 'Najs.TestAutoload')
       expect(ClassRegistry.findOrFail('Najs.TestAutoload')).toEqual({
@@ -85,7 +58,7 @@ describe('register()', function() {
     })
   })
 
-  describe('<typeof T>(classDefinition: T, className: string, overridable: boolean)', function() {
+  describe('<T>(classDefinition: ClassDefinition<T>, className: string, overridable: boolean)', function() {
     it('can lock the definition, no one can override it', function() {
       register<TestAutoload>(TestAutoload, 'Not-Overridable', false)
       expect(ClassRegistry.findOrFail('Not-Overridable')).toEqual({
@@ -108,7 +81,7 @@ describe('register()', function() {
     })
   })
 
-  describe('<typeof T>(classDefinition: T, className: string, overridable: boolean, singleton: boolean)', function() {
+  describe('<T>(classDefinition: ClassDefinition<T>, className: string, overridable: boolean, singleton: boolean)', function() {
     it('has default value is false', function() {
       register<TestAutoload>(TestAutoload, 'Singleton', true)
       expect(ClassRegistry.findOrFail('Singleton')).toEqual({
@@ -133,11 +106,9 @@ describe('register()', function() {
   describe('@register(name?: string)', function() {
     it('can be used as a decorator', function() {
       @register()
-      class A {
-        getClassName() {
-          return 'A'
-        }
-      }
+      @type('A')
+      class A {}
+
       expect(new A()).toBeInstanceOf(A)
       expect(ClassRegistry.findOrFail('A')).toEqual({
         className: 'A',
@@ -147,25 +118,10 @@ describe('register()', function() {
       })
     })
 
-    it('can be used if class has static className', function() {
-      @register()
-      class B {
-        static className: string = 'B'
-      }
-      expect(new B()).toBeInstanceOf(B)
-      expect(ClassRegistry.findOrFail('B')).toEqual({
-        className: 'B',
-        instanceConstructor: B,
-        overridable: true,
-        singleton: false
-      })
-    })
-
     it('can be used as a decorator with custom name', function() {
       @register('Cindy')
-      class C {
-        static className: 'C'
-      }
+      class C {}
+
       expect(new C()).toBeInstanceOf(C)
       expect(ClassRegistry.findOrFail('Cindy')).toEqual({
         className: 'Cindy',

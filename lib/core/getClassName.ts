@@ -30,16 +30,23 @@ function findClassNameByDefinition(classDefinition: Function) {
   }
 
   // Block will be remove in v2.x
-  logger.warn(
-    'Deprecated: .getClassName() or "static className"',
-    'is deprecated in najs-binding version 2.0.0, please use @type() instead.'
-  )
-
   if (isFunction(classDefinition.prototype.getClassName)) {
+    logger.warn(
+      'Deprecated: .getClassName()',
+      'is deprecated in najs-binding version 2.0.0, please use @type() instead for class',
+      classDefinition.name
+    )
+
     return classDefinition.prototype.getClassName.call(classDefinition)
   }
 
   if (isString(classDefinition['className'])) {
+    logger.warn(
+      'Deprecated: "static className"',
+      'is deprecated in najs-binding version 2.0.0, please use @type() instead for class',
+      classDefinition.name
+    )
+
     return classDefinition['className']
   }
 

@@ -23,11 +23,12 @@ function findClassNameByDefinition(classDefinition) {
         return type;
     }
     // Block will be remove in v2.x
-    exports.logger.warn('Deprecated: .getClassName() or "static className"', 'is deprecated in najs-binding version 2.0.0, please use @type() instead.');
     if (lodash_1.isFunction(classDefinition.prototype.getClassName)) {
+        exports.logger.warn('Deprecated: .getClassName()', 'is deprecated in najs-binding version 2.0.0, please use @type() instead for class', classDefinition.name);
         return classDefinition.prototype.getClassName.call(classDefinition);
     }
     if (lodash_1.isString(classDefinition['className'])) {
+        exports.logger.warn('Deprecated: "static className"', 'is deprecated in najs-binding version 2.0.0, please use @type() instead for class', classDefinition.name);
         return classDefinition['className'];
     }
     if (isFalsy(process.env.OBFUSCABLE_CHECK)) {
