@@ -1,0 +1,55 @@
+import { ClassRegistry } from './ClassRegistry'
+import { ClassRegistryItem } from '../private/ClassRegistryItem'
+import { isString, isFunction } from 'lodash'
+import { getClassName } from './getClassName'
+import { register } from './register'
+
+export type Decorator = (target: any) => any
+export type InstanceCreator = () => any
+
+export function bind(bindToClass: string): Decorator
+export function bind(className: string, instanceCreator: InstanceCreator): void
+export function bind(className: string, concrete: string): void
+export function bind(abstract: string, concrete?: string | InstanceCreator): any {
+  if (typeof concrete === 'undefined') {
+    return create_decorator(abstract)
+  }
+
+  if (ClassRegistry.has(abstract)) {
+    return update_concrete(abstract, concrete)
+  }
+
+  const item: ClassRegistryItem = new ClassRegistryItem(
+    abstract,
+    undefined,
+    isFunction(concrete) ? concrete : undefined,
+    undefined,
+    undefined,
+    undefined
+  )
+  if (isString(concrete)) {
+    item.concreteClassName = concrete
+  }
+  return ClassRegistry.register(item)
+}
+
+function update_concrete(abstract: string, concrete?: string | InstanceCreator) {
+  ClassRegistry.assertRegistryItemCouldBeUpdated(abstract)
+  const item: ClassRegistryItem = ClassRegistry.findOrFail(abstract)
+  if (isFunction(concrete)) {
+    item.instanceCreator = concrete
+    return ClassRegistry.register(item)
+  }
+  item.concreteClassName = concrete
+  return ClassRegistry.register(item)
+}
+
+function create_decorator(abstract: string) {
+  return function decorator(target: any): any {
+    const targetName = getClassName(target)
+    if (!ClassRegistry.has(targetName)) {
+      register(target, targetName)
+    }
+    bind(abstract, targetName)
+  }
+}
