@@ -1,7 +1,7 @@
 import 'jest'
-import { ClassRegistry } from '../../lib/core/ClassRegistry'
-import { register } from '../../lib/core/register'
-import { bind } from '../../lib/core/bind'
+import { ClassRegistry } from '../../../lib/core/ClassRegistry'
+import { register } from '../../../lib/core/register'
+import { bind } from '../../../lib/'
 
 describe('bind()', function() {
   describe('@bind(bindToClassName: string)', function() {

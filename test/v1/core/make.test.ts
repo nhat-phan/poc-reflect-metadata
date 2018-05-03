@@ -1,5 +1,5 @@
 import 'jest'
-import { make, register, IAutoload } from '../../lib'
+import { make, register, IAutoload } from '../../../lib'
 
 class Test implements IAutoload {
   any?: string

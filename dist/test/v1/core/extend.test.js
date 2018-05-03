@@ -10,14 +10,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 require("jest");
-const ClassRegistry_1 = require("../../lib/core/ClassRegistry");
-const register_1 = require("../../lib/core/register");
-const make_1 = require("../../lib/core/make");
-const extend_1 = require("../../lib/core/extend");
+const ClassRegistry_1 = require("../../../lib/core/ClassRegistry");
+const register_1 = require("../../../lib/core/register");
+const make_1 = require("../../../lib/core/make");
+const _1 = require("../../../lib/");
 describe('extend()', function () {
     describe('@extend(className: string)', function () {
         it('should return decorator if 2nd param is missing', function () {
-            expect(typeof extend_1.extend('Test1') === 'function').toBe(true);
+            expect(typeof _1.extend('Test1') === 'function').toBe(true);
         });
         it('calls decorated class constructor by instance of Class passed in arg1 when it is created', function () {
             class Test1 {
@@ -35,7 +35,7 @@ describe('extend()', function () {
             };
             Test1Wrapper.className = 'Test1Wrapper';
             Test1Wrapper = __decorate([
-                extend_1.extend('Test1'),
+                _1.extend('Test1'),
                 __metadata("design:paramtypes", [Test1])
             ], Test1Wrapper);
             let Test2Wrapper = class Test2Wrapper {
@@ -45,7 +45,7 @@ describe('extend()', function () {
             };
             Test2Wrapper.className = 'Test2Wrapper';
             Test2Wrapper = __decorate([
-                extend_1.extend(Test2),
+                _1.extend(Test2),
                 __metadata("design:paramtypes", [Test2])
             ], Test2Wrapper);
             expect(ClassRegistry_1.ClassRegistry.has('Test1')).toBe(true);
@@ -67,7 +67,7 @@ describe('extend()', function () {
             const extending = (instance) => {
                 instance;
             };
-            extend_1.extend(Test3, extending);
+            _1.extend(Test3, extending);
             expect(ClassRegistry_1.ClassRegistry.findOrFail('Test3').instanceExtending === extending).toBe(true);
         });
         it('can auto register if the extends the first parameter is classDefinition', function () {
@@ -78,7 +78,7 @@ describe('extend()', function () {
             const extending = (instance) => {
                 instance;
             };
-            extend_1.extend(Test4, extending);
+            _1.extend(Test4, extending);
             expect(ClassRegistry_1.ClassRegistry.findOrFail('Test4').instanceExtending === extending).toBe(true);
         });
         it('should work', function () {
@@ -94,7 +94,7 @@ describe('extend()', function () {
             const extending = (instance) => {
                 return new Test5Wrapper(instance);
             };
-            extend_1.extend(Test5, extending);
+            _1.extend(Test5, extending);
             expect(make_1.make(Test5)).toBeInstanceOf(Test5Wrapper);
             expect(make_1.make(Test5)['instance']).toBeInstanceOf(Test5);
             expect(make_1.make(Test5)).toBeInstanceOf(Test5Wrapper);

@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 require("jest");
-const ClassRegistryItem_1 = require("../../lib/private/ClassRegistryItem");
-const lib_1 = require("../../lib");
+const ClassRegistryItem_1 = require("../../../lib/private/ClassRegistryItem");
+const lib_1 = require("../../../lib");
 describe('ClassRegistry', function () {
     describe('register', function () {
         it('can detect circular reference', function () {

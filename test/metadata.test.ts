@@ -1,22 +1,37 @@
 import 'jest'
 import 'reflect-metadata'
 
-function className(name: string) {
-  return Reflect.metadata('design:type', name)
-}
+// function type(name: string) {
+//   return Reflect.metadata('design:type', name)
+// }
 
-@className('TestClass')
-class Test {}
+// function getClassName(this: Object) {
+//   console.log('get class name in Object.prototype')
+//   return Reflect.getMetadata('design:type', Object.getPrototypeOf(this).constructor)
+// }
 
-@className('ChildrenClass')
-class Children extends Test {}
+// Object.prototype['getClassName'] = getClassName
 
-declare const console: any
+// interface Test extends Najs.Contracts.Autoload {}
+// @type('TestClass')
+// class Test {}
+
+// @type('ChildrenClass')
+// class Children extends Test {}
+
+// class NotDefined {
+//   getClassName() {}
+// }
+
+// declare const console: any
 
 describe('Reflect.metadata', function() {
   it('should work', function() {
-    console.log(Reflect.getMetadata('design:type', Test))
-    console.log(Reflect.getMetadata('design:type', Children))
-    console.log(Reflect.getMetadata('design:type', Object.getPrototypeOf(new Test()).constructor))
+    // console.log(new Test().getClassName())
+    // console.log(new Children().getClassName())
+    // console.log(new NotDefined().getClassName())
+    // console.log(Object.getPrototypeOf(new Test()).getClassName === getClassName)
+    // console.log(Object.getPrototypeOf(new Children()).getClassName === getClassName)
+    // console.log(Object.getPrototypeOf(new NotDefined()).getClassName === getClassName)
   })
 })

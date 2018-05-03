@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 require("jest");
-const lib_1 = require("../../lib");
+const lib_1 = require("../../../lib");
 describe('ClassRegistryItem', function () {
     describe('private .createInstance()', function () {
         let Original = class Original {

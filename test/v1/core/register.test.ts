@@ -1,5 +1,5 @@
 import 'jest'
-import { ClassRegistry, register, IAutoload } from '../../lib'
+import { ClassRegistry, register, IAutoload } from '../../../lib'
 
 class TestAutoload implements IAutoload {
   getClassName() {

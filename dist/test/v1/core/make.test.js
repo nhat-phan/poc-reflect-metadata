@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 require("jest");
-const lib_1 = require("../../lib");
+const lib_1 = require("../../../lib");
 class Test {
     getClassName() {
         return 'Test';

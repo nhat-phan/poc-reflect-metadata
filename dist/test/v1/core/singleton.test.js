@@ -8,8 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 require("jest");
 const Sinon = require("sinon");
-const Register = require("../../lib/core/register");
-const singleton_1 = require("../../lib/core/singleton");
+const Register = require("../../../lib/core/register");
+const _1 = require("../../../lib/");
 describe('singleton()', function () {
     it('just a shortcut of register()', function () { });
     it('always passes true to singleton param of register()', function () {
@@ -17,7 +17,7 @@ describe('singleton()', function () {
         class Test {
         }
         Test.className = 'Test';
-        singleton_1.singleton(Test);
+        _1.singleton(Test);
         expect(spy.calledWith(Test, undefined, undefined, true)).toBe(true);
         spy.restore();
     });
@@ -27,7 +27,7 @@ describe('singleton()', function () {
             class Test {
             }
             Test.className = 'Test';
-            singleton_1.singleton(Test);
+            _1.singleton(Test);
             expect(spy.calledWith(Test, undefined, undefined, true)).toBe(true);
             spy.restore();
         });
@@ -38,7 +38,7 @@ describe('singleton()', function () {
             class Test {
             }
             Test.className = 'Test';
-            singleton_1.singleton(Test, 'Any');
+            _1.singleton(Test, 'Any');
             expect(spy.calledWith(Test, 'Any', undefined, true)).toBe(true);
             spy.restore();
         });
@@ -49,9 +49,9 @@ describe('singleton()', function () {
             class Test {
             }
             Test.className = 'Test';
-            singleton_1.singleton(Test, 'Any', true);
+            _1.singleton(Test, 'Any', true);
             expect(spy.calledWith(Test, 'Any', true, true)).toBe(true);
-            singleton_1.singleton(Test, 'Any', false);
+            _1.singleton(Test, 'Any', false);
             expect(spy.calledWith(Test, 'Any', false, true)).toBe(true);
             spy.restore();
         });
@@ -63,7 +63,7 @@ describe('singleton()', function () {
             };
             Test.className = 'Decorate';
             Test = __decorate([
-                singleton_1.singleton()
+                _1.singleton()
             ], Test);
             expect(spy.calledWith(Test, undefined, false, true)).toBe(true);
             spy.restore();
@@ -74,7 +74,7 @@ describe('singleton()', function () {
             };
             Class.className = 'Class';
             Class = __decorate([
-                singleton_1.singleton('CustomClass')
+                _1.singleton('CustomClass')
             ], Class);
             expect(spy.calledWith(Class, 'CustomClass', false, true)).toBe(true);
             spy.restore();

@@ -1,5 +1,5 @@
 import 'jest'
-import { class_registry_circular_reference_check } from '../../lib/private/class_registry_circular_reference_check'
+import { class_registry_circular_reference_check } from '../../../lib/private/class_registry_circular_reference_check'
 
 const dataset = {
   'returns false if there is circular setup is empty': {

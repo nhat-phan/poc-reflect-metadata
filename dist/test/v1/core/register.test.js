@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 require("jest");
-const lib_1 = require("../../lib");
+const lib_1 = require("../../../lib");
 class TestAutoload {
     getClassName() {
         return 'TestAutoload';

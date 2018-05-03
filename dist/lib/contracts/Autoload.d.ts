@@ -1,13 +1,17 @@
 declare namespace Najs.Contracts {
-    interface AutoloadContext {
+    class Autoload<T extends Object = Object> {
         /**
          * The context object passed from a hosted class which use @autoload
          */
-        __autoloadContext: Object;
+        protected __autoloadContext: T;
     }
-    interface Autoload {
+    interface Autoload<T extends Object = Object> {
         /**
          * Get name of the class.
+         *
+         * Please use decorator type() instead of getClassName(), it will be remove in version 2.x
+         *
+         * @deprecated
          */
         getClassName(): string;
     }

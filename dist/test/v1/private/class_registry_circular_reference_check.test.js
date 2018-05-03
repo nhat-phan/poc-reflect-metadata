@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 require("jest");
-const class_registry_circular_reference_check_1 = require("../../lib/private/class_registry_circular_reference_check");
+const class_registry_circular_reference_check_1 = require("../../../lib/private/class_registry_circular_reference_check");
 const dataset = {
     'returns false if there is circular setup is empty': {
         input: {},

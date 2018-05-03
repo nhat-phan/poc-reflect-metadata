@@ -1,3 +1,4 @@
+import { DESIGN_TYPE } from '../symbols'
 import { isString, isFunction } from 'lodash'
 declare const process: any
 declare const console: any
@@ -23,6 +24,17 @@ export function getClassName(input: any, allowString: boolean = true): string {
 }
 
 function findClassNameByDefinition(classDefinition: Function) {
+  const type = Reflect.getMetadata(DESIGN_TYPE, classDefinition)
+  if (typeof type !== 'undefined') {
+    return type
+  }
+
+  // Block will be remove in v2.x
+  logger.warn(
+    'Deprecated: .getClassName() or "static className"',
+    'is deprecated in najs-binding version 2.0.0, please use @type() instead.'
+  )
+
   if (isFunction(classDefinition.prototype.getClassName)) {
     return classDefinition.prototype.getClassName.call(classDefinition)
   }
@@ -37,6 +49,7 @@ function findClassNameByDefinition(classDefinition: Function) {
     }
     return classDefinition.name
   }
+  // Block will be remove in v2.x
 
   throw new TypeError('Please define "className" or "getClassName" for ' + classDefinition)
 }

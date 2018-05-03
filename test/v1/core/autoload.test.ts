@@ -1,5 +1,5 @@
 import 'jest'
-import { register, autoload } from '../../lib'
+import { register, autoload } from '../../../lib'
 
 export class Model {
   static className = 'Model'

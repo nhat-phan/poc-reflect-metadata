@@ -1,8 +1,8 @@
 import 'jest'
-import { ClassRegistry } from '../../lib/core/ClassRegistry'
-import { register } from '../../lib/core/register'
-import { make } from '../../lib/core/make'
-import { extend } from '../../lib/core/extend'
+import { ClassRegistry } from '../../../lib/core/ClassRegistry'
+import { register } from '../../../lib/core/register'
+import { make } from '../../../lib/core/make'
+import { extend } from '../../../lib/'
 
 describe('extend()', function() {
   describe('@extend(className: string)', function() {

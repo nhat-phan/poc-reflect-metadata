@@ -1,6 +1,6 @@
 import 'jest'
-import { ClassRegistryItem } from '../../lib/private/ClassRegistryItem'
-import { ClassRegistry } from '../../lib'
+import { ClassRegistryItem } from '../../../lib/private/ClassRegistryItem'
+import { ClassRegistry } from '../../../lib'
 
 describe('ClassRegistry', function() {
   describe('register', function() {

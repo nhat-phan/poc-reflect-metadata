@@ -1,7 +1,7 @@
 import 'jest'
 import * as Sinon from 'sinon'
-import * as Register from '../../lib/core/register'
-import { singleton } from '../../lib/core/singleton'
+import * as Register from '../../../lib/core/register'
+import { singleton } from '../../../lib/'
 
 describe('singleton()', function() {
   it('just a shortcut of register()', function() {})

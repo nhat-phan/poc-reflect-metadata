@@ -7,9 +7,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 require("jest");
-const ClassRegistry_1 = require("../../lib/core/ClassRegistry");
-const register_1 = require("../../lib/core/register");
-const bind_1 = require("../../lib/core/bind");
+const ClassRegistry_1 = require("../../../lib/core/ClassRegistry");
+const register_1 = require("../../../lib/core/register");
+const _1 = require("../../../lib/");
 describe('bind()', function () {
     describe('@bind(bindToClassName: string)', function () {
         it('should return decorator if 2nd param is missing, and bind Target to bindToClassName', function () {
@@ -21,7 +21,7 @@ describe('bind()', function () {
             };
             Test1Cached.className = 'Test1Cached';
             Test1Cached = __decorate([
-                bind_1.bind('Test1')
+                _1.bind('Test1')
             ], Test1Cached);
             expect(ClassRegistry_1.ClassRegistry.has('Test1')).toBe(true);
             expect(ClassRegistry_1.ClassRegistry.has(Test1Cached.className)).toBe(true);
@@ -36,7 +36,7 @@ describe('bind()', function () {
             };
             Test2Cached.className = 'Test2Cached';
             Test2Cached = __decorate([
-                bind_1.bind('Test2'),
+                _1.bind('Test2'),
                 register_1.register()
             ], Test2Cached);
             expect(ClassRegistry_1.ClassRegistry.has('Test2')).toBe(true);
@@ -50,7 +50,7 @@ describe('bind()', function () {
                 return 'any';
             };
             expect(ClassRegistry_1.ClassRegistry.has('NotRegisterYet')).toBe(false);
-            bind_1.bind('NotRegisterYet', instanceCreator);
+            _1.bind('NotRegisterYet', instanceCreator);
             expect(ClassRegistry_1.ClassRegistry.has('NotRegisterYet')).toBe(true);
             const item = ClassRegistry_1.ClassRegistry.findOrFail('NotRegisterYet');
             expect(item.className).toEqual('NotRegisterYet');
@@ -64,7 +64,7 @@ describe('bind()', function () {
             const instanceCreator = function () {
                 return 'any';
             };
-            bind_1.bind('TestInstanceCreator', instanceCreator);
+            _1.bind('TestInstanceCreator', instanceCreator);
             const item = ClassRegistry_1.ClassRegistry.findOrFail('TestInstanceCreator');
             expect(item.className).toEqual('TestInstanceCreator');
             expect(item.instanceCreator === instanceCreator).toBe(true);
@@ -75,7 +75,7 @@ describe('bind()', function () {
             IsNotOverridable.className = 'IsNotOverridable';
             register_1.register(IsNotOverridable, 'IsNotOverridable', false);
             try {
-                bind_1.bind('IsNotOverridable', function () { });
+                _1.bind('IsNotOverridable', function () { });
             }
             catch (error) {
                 expect(error.message).toEqual('Can not override IsNotOverridable');
@@ -86,7 +86,7 @@ describe('bind()', function () {
     });
     describe('bind(className: string, concrete: string)', function () {
         it('sets to concreteClassName if there is no item in ClassRegistry', function () {
-            bind_1.bind('NotRegisterYetConcrete', 'Test');
+            _1.bind('NotRegisterYetConcrete', 'Test');
             expect(ClassRegistry_1.ClassRegistry.has('NotRegisterYetConcrete')).toBe(true);
             const item = ClassRegistry_1.ClassRegistry.findOrFail('NotRegisterYetConcrete');
             expect(item.className).toEqual('NotRegisterYetConcrete');
@@ -97,7 +97,7 @@ describe('bind()', function () {
             }
             TestInstanceCreatorConcrete.className = 'TestInstanceCreatorConcrete';
             register_1.register(TestInstanceCreatorConcrete);
-            bind_1.bind('TestInstanceCreatorConcrete', 'Test');
+            _1.bind('TestInstanceCreatorConcrete', 'Test');
             const item = ClassRegistry_1.ClassRegistry.findOrFail('TestInstanceCreatorConcrete');
             expect(item.className).toEqual('TestInstanceCreatorConcrete');
             expect(item.concreteClassName).toEqual('Test');
@@ -111,9 +111,9 @@ describe('bind()', function () {
             }
             CircularReferenceB.className = 'CircularReferenceB';
             register_1.register(CircularReferenceB);
-            bind_1.bind(CircularReferenceA.className, CircularReferenceB.className);
+            _1.bind(CircularReferenceA.className, CircularReferenceB.className);
             try {
-                bind_1.bind(CircularReferenceB.className, CircularReferenceA.className);
+                _1.bind(CircularReferenceB.className, CircularReferenceA.className);
             }
             catch (error) {
                 expect(error.message).toEqual('Circular reference detected "CircularReferenceA => CircularReferenceB => CircularReferenceA"');

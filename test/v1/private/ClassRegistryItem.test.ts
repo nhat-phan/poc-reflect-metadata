@@ -1,5 +1,5 @@
 import 'jest'
-import { bind, register, singleton, ClassRegistry } from '../../lib'
+import { bind, register, singleton, ClassRegistry } from '../../../lib'
 
 describe('ClassRegistryItem', function() {
   describe('private .createInstance()', function() {

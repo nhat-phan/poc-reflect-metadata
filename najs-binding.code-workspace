@@ -64,8 +64,7 @@
     "prettier.ignorePath": ".prettierignore",
     "terminal.integrated.fontFamily": "Meslo LG M for Powerline",
     "terminal.integrated.fontSize": 12,
-    "vim.overrideCopy": false,
-    "cSpell.words": ["gitignore", "najs", "autoload", "overridable"],
+    "cSpell.words": ["gitignore", "najs", "autoload", "overridable", "paramtypes", "returntype"],
     "search.exclude": {
       "**/.git": true,
       "**/node_modules": true,

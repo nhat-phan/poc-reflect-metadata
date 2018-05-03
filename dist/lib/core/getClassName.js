@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const symbols_1 = require("../symbols");
 const lodash_1 = require("lodash");
 exports.logger = console;
 function getClassName(input, allowString = true) {
@@ -17,6 +18,12 @@ function getClassName(input, allowString = true) {
 }
 exports.getClassName = getClassName;
 function findClassNameByDefinition(classDefinition) {
+    const type = Reflect.getMetadata(symbols_1.DESIGN_TYPE, classDefinition);
+    if (typeof type !== 'undefined') {
+        return type;
+    }
+    // Block will be remove in v2.x
+    exports.logger.warn('Deprecated: .getClassName() or "static className"', 'is deprecated in najs-binding version 2.0.0, please use @type() instead.');
     if (lodash_1.isFunction(classDefinition.prototype.getClassName)) {
         return classDefinition.prototype.getClassName.call(classDefinition);
     }
@@ -29,6 +36,7 @@ function findClassNameByDefinition(classDefinition) {
         }
         return classDefinition.name;
     }
+    // Block will be remove in v2.x
     throw new TypeError('Please define "className" or "getClassName" for ' + classDefinition);
 }
 function isFalsy(value) {

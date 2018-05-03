@@ -1,6 +1,8 @@
 "use strict";
-/// <reference path="contracts/Autoload.ts" />
 Object.defineProperty(exports, "__esModule", { value: true });
+/// <reference path="contracts/Autoload.ts" />
+/// <reference types="reflect-metadata" />
+require("reflect-metadata");
 var make_1 = require("./core/make");
 exports.make = make_1.make;
 var bind_1 = require("./core/bind");
@@ -18,3 +20,7 @@ exports.ClassRegistry = ClassRegistry_1.ClassRegistry;
 var getClassName_1 = require("./core/getClassName");
 exports.getClassName = getClassName_1.getClassName;
 exports.setLogger = getClassName_1.setLogger;
+var type_1 = require("./decorators/type");
+exports.type = type_1.type;
+var symbols_1 = require("./symbols");
+exports.Symbols = symbols_1.Symbols;
