@@ -1,3 +1,4 @@
+import { ClassDefinition } from '../types'
 import { getClassName } from './getClassName'
 import { ClassRegistry } from './ClassRegistry'
 
@@ -6,7 +7,7 @@ import { ClassRegistry } from './ClassRegistry'
  *
  * @param {class|function} classDefinition - class definition
  */
-export function make<T>(classDefinition: any): T
+export function make<T>(classDefinition: ClassDefinition<T>): T
 /**
  * `make` a class instance from registered class's name
  *
@@ -19,7 +20,7 @@ export function make<T>(className: string): T
  * @param {class|function} classDefinition - class definition
  * @param {Object} data - filled data to instance
  */
-export function make<T>(classDefinition: any, data: Object): T
+export function make<T>(classDefinition: ClassDefinition<T>, data: Object): T
 /**
  * `make` a class instance from registered class's name with data
  *
@@ -33,14 +34,15 @@ export function make<T>(className: string, data: Object): T
  * @param {class|function} classDefinition - class definition
  * @param {Array} data - arguments list for constructor
  */
-export function make(classDefinition: any, args: any[]): any
+export function make<T>(classDefinition: ClassDefinition<T>, args: any[]): T
 /**
  * `make` a class instance from registered class's name with args for constructor
  *
  * @param {string} className - the registered class name
  * @param {Array} data - arguments list for constructor
  */
-export function make<T>(className: any, args: any[]): T
+export function make<T>(className: string, args: any[]): T
+
 export function make(className: any, data?: Object | any[]): any {
   return ClassRegistry.findOrFail(getClassName(className)).make(<any>data)
 }

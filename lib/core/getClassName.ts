@@ -49,6 +49,7 @@ function findClassNameByDefinition(classDefinition: Function) {
 
     return classDefinition['className']
   }
+  // Block will be remove in v2.x
 
   if (isFalsy(process.env.OBFUSCABLE_CHECK)) {
     if (typeof process.env.OBFUSCABLE_WARNING === 'undefined' || !isFalsy(process.env.OBFUSCABLE_WARNING)) {
@@ -56,9 +57,8 @@ function findClassNameByDefinition(classDefinition: Function) {
     }
     return classDefinition.name
   }
-  // Block will be remove in v2.x
 
-  throw new TypeError('Please define "className" or "getClassName" for ' + classDefinition)
+  throw new TypeError('Please use @type() annotation for class ' + classDefinition)
 }
 
 function isFalsy(value: string | undefined) {

@@ -31,14 +31,14 @@ function findClassNameByDefinition(classDefinition) {
         exports.logger.warn('Deprecated: "static className"', 'is deprecated in najs-binding version 2.0.0, please use @type() instead for class', classDefinition.name);
         return classDefinition['className'];
     }
+    // Block will be remove in v2.x
     if (isFalsy(process.env.OBFUSCABLE_CHECK)) {
         if (typeof process.env.OBFUSCABLE_WARNING === 'undefined' || !isFalsy(process.env.OBFUSCABLE_WARNING)) {
             exports.logger.warn('Class', '"' + classDefinition.name + '"', 'may not be used if you uglify (obfuscate) your script.');
         }
         return classDefinition.name;
     }
-    // Block will be remove in v2.x
-    throw new TypeError('Please define "className" or "getClassName" for ' + classDefinition);
+    throw new TypeError('Please use @type() annotation for class ' + classDefinition);
 }
 function isFalsy(value) {
     if (typeof value === 'undefined') {

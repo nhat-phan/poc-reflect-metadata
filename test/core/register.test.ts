@@ -18,7 +18,7 @@ describe('register()', function() {
       expect(register(Invalid))
     } catch (error) {
       expect(error instanceof TypeError)
-      expect(error.message).toEqual('Please define "className" or "getClassName" for ' + Invalid)
+      expect(error.message).toEqual('Please use @type() annotation for class ' + Invalid)
       return
     }
     expect('should throw a TypeError').toEqual('')

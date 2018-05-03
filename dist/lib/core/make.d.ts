@@ -1,9 +1,10 @@
+import { ClassDefinition } from '../types';
 /**
  * `make` a class instance
  *
  * @param {class|function} classDefinition - class definition
  */
-export declare function make<T>(classDefinition: any): T;
+export declare function make<T>(classDefinition: ClassDefinition<T>): T;
 /**
  * `make` a class instance from registered class's name
  *
@@ -16,7 +17,7 @@ export declare function make<T>(className: string): T;
  * @param {class|function} classDefinition - class definition
  * @param {Object} data - filled data to instance
  */
-export declare function make<T>(classDefinition: any, data: Object): T;
+export declare function make<T>(classDefinition: ClassDefinition<T>, data: Object): T;
 /**
  * `make` a class instance from registered class's name with data
  *
@@ -30,11 +31,11 @@ export declare function make<T>(className: string, data: Object): T;
  * @param {class|function} classDefinition - class definition
  * @param {Array} data - arguments list for constructor
  */
-export declare function make(classDefinition: any, args: any[]): any;
+export declare function make<T>(classDefinition: ClassDefinition<T>, args: any[]): T;
 /**
  * `make` a class instance from registered class's name with args for constructor
  *
  * @param {string} className - the registered class name
  * @param {Array} data - arguments list for constructor
  */
-export declare function make<T>(className: any, args: any[]): T;
+export declare function make<T>(className: string, args: any[]): T;

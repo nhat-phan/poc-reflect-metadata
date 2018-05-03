@@ -79,7 +79,7 @@ describe('.getClassName()', function() {
           expect(getClassName(Class)).toEqual('Class')
         } catch (error) {
           expect(error).toBeInstanceOf(TypeError)
-          expect(error.message.indexOf('Please define "className" or "getClassName" for') === 0).toBe(true)
+          expect(error.message.indexOf('Please use @type() annotation for class') === 0).toBe(true)
           delete process.env.OBFUSCABLE_CHECK
           return
         }
