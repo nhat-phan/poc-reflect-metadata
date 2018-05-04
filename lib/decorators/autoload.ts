@@ -1,4 +1,4 @@
-import { make } from './make'
+import { make } from '../core/make'
 
 export function autoload(classDefinition: any): any
 export function autoload(className: string): any {
